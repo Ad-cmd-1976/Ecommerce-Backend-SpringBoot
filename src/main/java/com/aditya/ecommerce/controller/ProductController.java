@@ -2,9 +2,7 @@ package com.aditya.ecommerce.controller;
 
 import com.aditya.ecommerce.entity.Product;
 import com.aditya.ecommerce.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -26,5 +24,10 @@ public class ProductController {
     @GetMapping("/getFeaturedProducts")
     public List<Product> getFeaturedProducts(){
         return productService.getFeaturedProducts();
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product){
+        return productService.createProduct(product);
     }
 }

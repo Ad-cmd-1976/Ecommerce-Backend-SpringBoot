@@ -1,5 +1,6 @@
 package com.aditya.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -81,6 +82,7 @@ public class Product {
         this.createdAt = createdAt;
     }
 
+    @JsonProperty("isFeatured")
     public boolean isFeatured() {
         return isFeatured;
     }
