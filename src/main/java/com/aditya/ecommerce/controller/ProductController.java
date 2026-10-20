@@ -1,9 +1,12 @@
 package com.aditya.ecommerce.controller;
 
+import com.aditya.ecommerce.dto.ProductRequestDto;
 import com.aditya.ecommerce.entity.Product;
 import com.aditya.ecommerce.service.ProductService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +30,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product){
-        return productService.createProduct(product);
+    public Product createProduct(@ModelAttribute ProductRequestDto request) throws IOException {
+        return productService.createProduct(request);
     }
 }
