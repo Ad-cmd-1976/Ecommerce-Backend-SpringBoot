@@ -42,4 +42,29 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+
+    public void deleteProduct(Long id) throws IOException {
+        Product product = productRepository.findById(id).
+                orElseThrow(() -> new IllegalArgumentException("Product with id "+id+" not found!"));
+
+        String imageUrl = product.getImage();
+        System.out.println(imageUrl);
+        String publicId = getPublicId(imageUrl);
+        System.out.println(publicId);
+
+        Map<?, ?> result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+
+        String deleteResult = (String) result.get("result");
+
+        if(!"ok".equals(deleteResult) && !"not found".equals(deleteResult)){
+            throw new IllegalStateException("Cloudinary image deletion failed"+deleteResult);
+        }
+
+        productRepository.delete(product);
+    }
+
+    private String getPublicId(String imageUrl){
+        String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+        return fileName.substring(0, fileName.lastIndexOf("."));
+    }
 }

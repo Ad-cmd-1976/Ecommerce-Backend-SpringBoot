@@ -3,6 +3,7 @@ package com.aditya.ecommerce.controller;
 import com.aditya.ecommerce.dto.ProductRequestDto;
 import com.aditya.ecommerce.entity.Product;
 import com.aditya.ecommerce.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,4 +34,11 @@ public class ProductController {
     public Product createProduct(@ModelAttribute ProductRequestDto request) throws IOException {
         return productService.createProduct(request);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) throws IOException{
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
